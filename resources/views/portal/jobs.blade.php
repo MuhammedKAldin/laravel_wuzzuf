@@ -24,72 +24,75 @@
                     <div class="job_filter white-bg">
                         <div class="form_inner white-bg">
                             <h3>Filter</h3>
-                            <form action="#">
+                            <form action="{{ route('jobs.index') }}" method="GET">
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="single_field">
-                                            <input type="text" placeholder="Search keyword">
+                                            <input type="text" name="search" placeholder="Search keyword" value="{{ request('search') }}">
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="single_field">
-                                            <select class="wide">
-                                                <option data-display="Location">Location</option>
-                                                <option value="1">Rangpur</option>
-                                                <option value="2">Dhaka </option>
+                                            <input type="text" id="location" name="location" placeholder="Location" value="{{ request('location') }}" autocomplete="off">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="single_field">
+                                            <input type="text" id="company" name="company" placeholder="Company" value="{{ request('company') }}" autocomplete="off">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="single_field">
+                                            <select class="wide" name="category">
+                                                <option value="">--</option>
+                                                @foreach($categories as $category)
+                                                    <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="single_field">
-                                            <select class="wide">
-                                                <option data-display="Category">Category</option>
-                                                <option value="1">Category 1</option>
-                                                <option value="2">Category 2 </option>
+                                            <select class="wide" name="level">
+                                                @foreach($experienceLevels as $value => $label)
+                                                    <option value="{{ $value }}" {{ request('level') == $value ? 'selected' : '' }}>{{ $label }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="single_field">
-                                            <select class="wide">
-                                                <option data-display="Experience">Experience</option>
-                                                <option value="1">Experience 1</option>
-                                                <option value="2">Experience 2 </option>
+                                            <select class="wide" name="job_type">
+                                                @foreach($jobTypes as $value => $label)
+                                                    <option value="{{ $value }}" {{ request('job_type') == $value ? 'selected' : '' }}>{{ $label }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="single_field">
-                                            <select class="wide">
-                                                <option data-display="Job type">Job type</option>
-                                                <option value="1">full time 1</option>
-                                                <option value="2">part time 2 </option>
+                                            <select class="wide" name="qualification">
+                                                @foreach($qualifications as $value => $label)
+                                                    <option value="{{ $value }}" {{ request('qualification') == $value ? 'selected' : '' }}>{{ $label }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="single_field">
-                                            <select class="wide">
-                                                <option data-display="Qualification">Qualification</option>
-                                                <option value="1">Qualification 1</option>
-                                                <option value="2">Qualification 2</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="single_field">
-                                            <select class="wide">
-                                                <option data-display="Gender">Gender</option>
-                                                <option value="1">male</option>
-                                                <option value="2">female</option>
+                                            <select class="wide" name="gender">
+                                                @foreach($genders as $value => $label)
+                                                    <option value="{{ $value }}" {{ request('gender') == $value ? 'selected' : '' }}>{{ $label }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="reset_btn">
+                                    <button class="boxed-btn3 w-100" type="submit">Search</button>
+                                    <a href="{{ route('jobs.index') }}" class="boxed-btn3 w-100 mt-3" style="background: #6c757d; border-color: #6c757d;">Clear Filters</a>
+                                </div>
                             </form>
-                        </div>
-                        <div class="reset_btn">
-                            <button  class="boxed-btn3 w-100" type="submit">Reset</button>
                         </div>
                     </div>
                 </div>
@@ -102,11 +105,11 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="serch_cat d-flex justify-content-end">
-                                        <select>
-                                            <option data-display="Most Recent">Most Recent</option>
-                                            <option value="1">Marketer</option>
-                                            <option value="2">Wordpress </option>
-                                            <option value="4">Designer</option>
+                                        <select name="time_filter" id="time_filter">
+                                            <option value="">Most Recent</option>
+                                            <option value="7" {{ request('time_filter') == '7' ? 'selected' : '' }}>Last 7 Days</option>
+                                            <option value="30" {{ request('time_filter') == '30' ? 'selected' : '' }}>Last 30 Days</option>
+                                            <option value="60" {{ request('time_filter') == '60' ? 'selected' : '' }}>Last 60 Days</option>
                                         </select>
                                     </div>
                                 </div>
@@ -139,8 +142,8 @@
                                 <div class="single_jobs white-bg d-flex justify-content-between">
                                     
                                     <div class="jobs_left d-flex align-items-center">
-                                        <div class="thumb">
-                                            <img src="img/svg_icon/1.svg" alt="">
+                                        <div class="thumb" style="width: 100px; height: 100px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #f5f5f5;">
+                                            <img src="{{ $job->employer->userAvatar }}" alt="{{ $job->employer->name }}" style="width: 100%; height: 100%; object-fit: contain;">
                                         </div>
                                         <div class="jobs_conetent">
                                             <a href="/jobs/{{ $job->id }}">
@@ -170,7 +173,7 @@
                                                         ->exists();
                                                 @endphp
                                                 @if ($hasApplied)
-                                                    <a href="/jobs/{{ $job->id }}" class="boxed-btn3">Applied</a>
+                                                    <a href="/jobs/{{ $job->id }}" class="boxed-btn3" style="background-color: #6c757d; border-color: #6c757d;">Applied</a>
                                                 @else
                                                     <a href="/jobs/{{ $job->id }}" class="boxed-btn3">Apply Now</a>
                                                 @endif
@@ -221,3 +224,106 @@
     </div>
     <!-- job_listing_area_end  -->
 @endsection
+
+@push('scripts')
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script>
+    $(document).ready(function() {
+        let typingTimer;
+        const doneTypingInterval = 300; // milliseconds
+
+        $('#location').autocomplete({
+            source: function(request, response) {
+                clearTimeout(typingTimer);
+                
+                typingTimer = setTimeout(function() {
+                    $.ajax({
+                        url: "{{ route('jobs.locations') }}",
+                        dataType: "json",
+                        data: {
+                            term: request.term
+                        },
+                        success: function(data) {
+                            response($.map(data, function(item) {
+                                return {
+                                    label: item,
+                                    value: item
+                                };
+                            }));
+                        }
+                    });
+                }, doneTypingInterval);
+            },
+            minLength: 1,
+            delay: 300,
+            select: function(event, ui) {
+                $('#location').val(ui.item.value);
+                return false;
+            },
+            focus: function(event, ui) {
+                $('#location').val(ui.item.label);
+                return false;
+            }
+        }).data("ui-autocomplete")._renderItem = function(ul, item) {
+            return $("<li>")
+                .append("<div>" + item.label + "</div>")
+                .appendTo(ul);
+        };
+
+        $('#company').autocomplete({
+            source: function(request, response) {
+                clearTimeout(typingTimer);
+                
+                typingTimer = setTimeout(function() {
+                    $.ajax({
+                        url: "{{ route('jobs.companies') }}",
+                        dataType: "json",
+                        data: {
+                            term: request.term
+                        },
+                        success: function(data) {
+                            response($.map(data, function(item) {
+                                return {
+                                    label: item,
+                                    value: item
+                                };
+                            }));
+                        }
+                    });
+                }, doneTypingInterval);
+            },
+            minLength: 1,
+            delay: 300,
+            select: function(event, ui) {
+                $('#company').val(ui.item.value);
+                return false;
+            },
+            focus: function(event, ui) {
+                $('#company').val(ui.item.label);
+                return false;
+            }
+        }).data("ui-autocomplete")._renderItem = function(ul, item) {
+            return $("<li>")
+                .append("<div>" + item.label + "</div>")
+                .appendTo(ul);
+        };
+
+        $('#time_filter').on('change', function() {
+            // Get the current URL and parameters
+            let url = new URL(window.location.href);
+            let params = new URLSearchParams(url.search);
+            
+            // Update or remove the time_filter parameter
+            if (this.value) {
+                params.set('time_filter', this.value);
+            } else {
+                params.delete('time_filter');
+            }
+            
+            // Update the URL and reload the page
+            window.location.href = url.pathname + '?' + params.toString();
+        });
+    });
+</script>
+@endpush

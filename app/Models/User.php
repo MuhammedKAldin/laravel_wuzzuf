@@ -27,6 +27,7 @@ class User extends Authenticatable
         'summary',
         'headline',
         'cv_path',
+        'avatar',
     ];
 
     /**
@@ -87,5 +88,27 @@ class User extends Authenticatable
     public function isEmployee()
     {
         return $this->role === 'employee';
+    }
+
+    /**
+     * Get the user's avatar URL
+     *
+     * @return string
+     */
+    public function getUserAvatarAttribute()
+    {
+        if ($this->avatar) {
+            return asset('storage/' . $this->avatar);
+        }
+        
+        if ($this->isEmployee()) {
+            return asset('img/candidate.png');
+        }
+        
+        if ($this->isEmployer()) {
+            return asset('img/employer.png');
+        }
+        
+        return asset('img/default-avatar.png');
     }
 }

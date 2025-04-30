@@ -5,6 +5,7 @@ use App\Http\Controllers\PortalController;
 use App\Http\Controllers\PusherController;
 use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\JobOfferController;
+use App\Http\Controllers\JobController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,13 +35,15 @@ Route::get('/profile/{id}', [PortalController::class, 'showProfile'])->name('sho
 Route::post('/profile/update', [PortalController::class, 'updateProfile'])->name('updateProfile');
 
 // Display Posted Jobs
-Route::get('/jobs', [PortalController::class, 'showJobs'])->name('showJobs');
+Route::get('/jobs', [JobController::class, 'index'])->name('jobs.index');
+Route::get('/jobs/locations', [JobController::class, 'getLocations'])->name('jobs.locations');
+Route::get('/jobs/companies', [JobController::class, 'getCompanies'])->name('jobs.companies');
 
 // Job Details Page (must be after /jobs to avoid conflict)
 Route::get('/jobs/{id}', [PortalController::class, 'showJobDetails'])->name('showJobDetails');
 
 // Apply to Posted Job (Employee)
-Route::get('/jobs/apply', [PortalController::class, 'applyToJob'])->name('applyToJob');
+Route::post('/jobs/apply', [PortalController::class, 'applyToJob'])->name('applyToJob');
 
 // Current Applications (Employee)
 Route::get('/applications', [PortalController::class, 'showApplications'])->name('showApplications');

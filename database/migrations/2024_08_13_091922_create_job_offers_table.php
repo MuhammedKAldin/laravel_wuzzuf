@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Create job_offers table
         Schema::create('job_offers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('employer_id');
@@ -21,7 +22,11 @@ return new class extends Migration
             $table->string('benifits');
             $table->string('location');
             $table->string('availability');
-            $table->string('level');
+            $table->enum('level', ['Intern', 'Junior', 'Mid', 'Senior', 'Principal', 'Manager']);
+            $table->enum('job_type', ['Full-time', 'Part-time']);
+            $table->enum('qualification', ['High School', 'Bachelor', 'Master', 'PhD']);
+            $table->enum('gender', ['Male', 'Female', 'Any']);
+            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
             $table->timestamps();
         });
 
@@ -40,6 +45,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('job_offer_user');
         Schema::dropIfExists('job_offers');
     }
 };

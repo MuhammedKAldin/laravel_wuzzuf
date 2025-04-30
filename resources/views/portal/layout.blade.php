@@ -176,10 +176,10 @@
                                                 <li><a href="{{route("addJob")}}">Place Jobs</a></li>
                                                 <li><a href="{{route('showProfileJobs', ['id' => Auth::user()->id]) }}">My Candidates</a></li>
                                             @elseif ($userType == "employee")
-                                                <li><a href="{{route("showJobs")}}">Browse Jobs</a></li>
+                                                <li><a href="{{route("jobs.index")}}">Browse Jobs</a></li>
                                                 <li><a href="{{route("showApplications")}}">My Applications</a></li>
                                             @else
-                                                <li><a href="{{route("showJobs")}}">Browse Jobs</a></li>
+                                                <li><a href="{{route("jobs.index")}}">Browse Jobs</a></li>
                                             @endif
                                             <li style="visibility: hidden;"><a href="#">pages <i class="ti-angle-down"></i></a>
                                                 <ul class="submenu">
@@ -251,10 +251,10 @@
                                                     <li><a href="{{route("addJob")}}"><i class="fas fa-plus-circle"></i> Place Jobs</a></li>
                                                     <li><a href="{{route('showProfileJobs', ['id' => Auth::user()->id]) }}"><i class="fas fa-users"></i> My Candidates</a></li>
                                                 @elseif ($userType == "employee")
-                                                    <li><a href="{{route("showJobs")}}"><i class="fas fa-search"></i> Browse Jobs</a></li>
+                                                    <li><a href="{{route("jobs.index")}}"><i class="fas fa-search"></i> Browse Jobs</a></li>
                                                     <li><a href="{{route("showApplications")}}"><i class="fas fa-file-alt"></i> My Applications</a></li>
                                                 @else
-                                                    <li><a href="{{route("showJobs")}}"><i class="fas fa-search"></i> Browse Jobs</a></li>
+                                                    <li><a href="{{route("jobs.index")}}"><i class="fas fa-search"></i> Browse Jobs</a></li>
                                                 @endif
                                                 @guest
                                                     @if (Route::has('login'))
@@ -513,6 +513,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
             });
         });
     </script>
+    @stack('scripts')
 </body>
 
 </html>

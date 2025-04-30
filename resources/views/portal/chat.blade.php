@@ -74,7 +74,7 @@
 
       let senderMessage = `
         <div class="left message">
-            <img src="{{asset("avatar.png")}}" alt="Avatar">
+            <img src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('avatar.png') }}" alt="Avatar">
             <p>` + jsonMsg + `</p>
         </div>`;
         
@@ -102,7 +102,7 @@
         let senderMessage = `
         <div class="right message">
             <p>` + $("form #message").val() + `</p>
-            <img src="{{asset("avatar.png")}}" alt="Avatar">
+            <img src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('avatar.png') }}" alt="Avatar">
         </div>`;
 
         $(".messages > .message").last().after(senderMessage);

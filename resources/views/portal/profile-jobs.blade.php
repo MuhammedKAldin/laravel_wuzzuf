@@ -23,7 +23,7 @@
                     <div class="popular_search align-items-center">
                         <ul>
                             <li><a href="{{ route('showProfile', ['id' => $user->id]) }}">General</a></li>
-                            <li><a href="{{ route('showJobs', ['id' => $user->id]) }}">Jobs</a></li>
+                            <li><a href="{{ route('jobs.index', ['id' => $user->id]) }}">Jobs</a></li>
                             {{-- <li><a href="#">Review</a></li> --}}
                         </ul>
                     </div>

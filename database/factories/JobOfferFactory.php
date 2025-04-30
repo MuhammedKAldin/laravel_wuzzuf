@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\CategoryType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -26,6 +27,7 @@ class JobOfferFactory extends Factory
             'benifits' => $this->faker->sentence(),
             'location' => $this->faker->city(),
             'availability' => 'Freelance',
+            'category_id' => rand(1, 8), // Categories are from 1 to 8
         ];
     }
 }

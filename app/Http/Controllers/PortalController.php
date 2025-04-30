@@ -111,14 +111,17 @@ class PortalController extends Controller
     public function showJobDetails($id)
     {
         $job = JobOffer::find($id);
-
         if (!$job) {
-            return redirect()->route('showJobs')->with('error', 'Job not found');
+            return redirect()->route('jobs.index')->with('error', 'Job not found');
         }
 
-        $userType = Auth::check() ? Auth::user()->role : "guest";
+        if(Auth::user() != null) {
+            $userType = Auth::user()->role;
+        } else {
+            $userType = "guest";
+        }
 
-        return view('portal.job_details', compact('userType', 'job'));
+        return view('portal.job_details', compact('job', 'userType'));
     }
 
     public function applyToJob(Request $request)

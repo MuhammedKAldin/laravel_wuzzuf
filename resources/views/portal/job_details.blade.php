@@ -14,7 +14,8 @@
             </div>
         </div>
     </div>
-    <!--/ bradcam_area  -->
+
+    <!--/ bradcam_area  --> 
 
     <div class="job_details_area">
         <div class="container">
@@ -23,8 +24,8 @@
                     <div class="job_details_header">
                         <div class="single_jobs white-bg d-flex justify-content-between">
                             <div class="jobs_left d-flex align-items-center">
-                                <div class="thumb">
-                                    <img src="img/svg_icon/1.svg" alt="">
+                                <div class="thumb" style="width: 20%; height: 90px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #f5f5f5;">
+                                    <img src="{{ $job->employer->userAvatar }}" alt="{{ $job->employer->name }}" style="width: 100%; height: 100%; object-fit: contain;">
                                 </div>
                                 <div class="jobs_conetent">
                                     <a href="#"><h4>{{ $job->name }}</h4></a>

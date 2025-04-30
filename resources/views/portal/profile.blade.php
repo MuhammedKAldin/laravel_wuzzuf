@@ -28,6 +28,23 @@
             <form class="form-contact contact_form" action="{{ route('updateProfile') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
+                    <div class="col-12 mb-4">
+                        <div class="form-group text-center">
+                            <div class="avatar-wrapper mb-3">
+                                <img src="{{ $user->userAvatar }}" alt="Profile Picture" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;">
+                            </div>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <button type="button" id="inputGroupFileAddon02"><i class="fa fa-cloud-upload" aria-hidden="true"></i></button>
+                                </div>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="avatar" name="avatar" accept="image/*">
+                                    <label class="custom-file-label" for="avatar">Change Profile Picture</label>
+                                </div>
+                            </div>
+                            <small class="form-text text-muted">Upload a new profile picture (JPG, PNG, max 2MB)</small>
+                        </div>
+                    </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                         <input class="form-control" name="name" id="name" type="text" placeholder = 'Profile Name' value='{{$user->name}}' >
