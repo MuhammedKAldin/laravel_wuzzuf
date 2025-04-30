@@ -26,6 +26,8 @@ class JobOfferUser extends Model
         'job_offer_id',
         'user_id',
         'stage',
+        'cv_path',
+        'cover_letter',
     ];
 
     // Optionally, you can define relationships if needed.

@@ -31,9 +31,13 @@ Route::get('/', [PortalController::class, 'index'])->name('index');
 
 // User's Profile
 Route::get('/profile/{id}', [PortalController::class, 'showProfile'])->name('showProfile');
+Route::post('/profile/update', [PortalController::class, 'updateProfile'])->name('updateProfile');
 
 // Display Posted Jobs
 Route::get('/jobs', [PortalController::class, 'showJobs'])->name('showJobs');
+
+// Job Details Page (must be after /jobs to avoid conflict)
+Route::get('/jobs/{id}', [PortalController::class, 'showJobDetails'])->name('showJobDetails');
 
 // Apply to Posted Job (Employee)
 Route::get('/jobs/apply', [PortalController::class, 'applyToJob'])->name('applyToJob');

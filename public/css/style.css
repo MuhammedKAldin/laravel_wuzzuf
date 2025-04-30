@@ -2922,7 +2922,7 @@ h3 {
 .job_searcing_wrap.overlay::before {
   background: #0A8CFF;
   opacity: .8;
-  width: 50%;
+  width: 100%;
   height: 100%;
   left: 0;
   top: 0;
@@ -2932,7 +2932,7 @@ h3 {
 @media (max-width: 767px) {
   /* line 12, ../../Arafath/CL/December/235. Job board/HTML/scss/_job.scss */
   .job_searcing_wrap.overlay::before {
-    height: 50%;
+    height: 100%;
     top: 0;
     left: 0;
     width: 100%;
@@ -2942,7 +2942,7 @@ h3 {
 /* line 27, ../../Arafath/CL/December/235. Job board/HTML/scss/_job.scss */
 .job_searcing_wrap::after {
   background-image: url(../img/job/1.png);
-  width: 50%;
+  width: 100%;
   height: 100%;
   background-repeat: no-repeat;
   background-size: cover;
@@ -2956,7 +2956,7 @@ h3 {
 @media (max-width: 767px) {
   /* line 27, ../../Arafath/CL/December/235. Job board/HTML/scss/_job.scss */
   .job_searcing_wrap::after {
-    height: 50%;
+    height: 100%;
     top: 0;
     left: 0;
     width: 100%;

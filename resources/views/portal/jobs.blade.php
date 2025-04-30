@@ -143,7 +143,7 @@
                                             <img src="img/svg_icon/1.svg" alt="">
                                         </div>
                                         <div class="jobs_conetent">
-                                            <a href="/profile/{{$job->employer->id}}">
+                                            <a href="/jobs/{{ $job->id }}">
                                                 <h4> {{$job->name}} </h4>
                                                 <h6>{{'@'.$job->employer->name}}</h6>
                                                 <p> <i class="fa fa-user"></i> {{$job->level}} </p>
@@ -163,7 +163,20 @@
                                     <div class="jobs_right">
                                         <div class="apply_now">
                                             {{-- <a class="heart_mark" href="#"> <i class="fa fa-heart"></i> </a> --}}
-                                            <a href="{{ route('applyToJob', ['jid' => $job->id, 'uid' => Auth::user()->id]) }}" class="boxed-btn3">Apply Now</a>
+                                            @if (Auth::user())
+                                                @php
+                                                    $hasApplied = \App\Models\JobOfferUser::where('job_offer_id', $job->id)
+                                                        ->where('user_id', Auth::user()->id)
+                                                        ->exists();
+                                                @endphp
+                                                @if ($hasApplied)
+                                                    <a href="/jobs/{{ $job->id }}" class="boxed-btn3">Applied</a>
+                                                @else
+                                                    <a href="/jobs/{{ $job->id }}" class="boxed-btn3">Apply Now</a>
+                                                @endif
+                                            @else
+                                                <a href="/jobs/{{ $job->id }}" class="boxed-btn3">View Details</a>
+                                            @endif
                                         </div>
                                         <div class="date">
                                             <p>Post Since : {{ \Carbon\Carbon::parse($job->created_at)->format('d M Y') }}</p>

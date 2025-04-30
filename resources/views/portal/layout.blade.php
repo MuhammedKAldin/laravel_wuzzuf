@@ -26,6 +26,124 @@
 
     <link rel="stylesheet" href="{{asset('css/style.css')}}" />
     <!-- <link rel="stylesheet" href="{{asset('css/responsive.css')}}" /> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        .slicknav_menu {
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: 999;
+        }
+        .slicknav_btn {
+            background: transparent;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+        .slicknav_icon {
+            display: block;
+            width: 30px;
+            height: 20px;
+            position: relative;
+        }
+        .slicknav_icon-bar {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background: #fff;
+            margin: 5px 0;
+            transition: all 0.3s;
+        }
+        .slicknav_nav {
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background: #fff;
+            padding: 10px;
+            min-width: 200px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .slicknav_nav li {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .slicknav_nav a {
+            color: #333;
+            text-decoration: none;
+            padding: 8px 15px;
+            display: block;
+        }
+        .slicknav_nav a:hover {
+            background: #f5f5f5;
+        }
+        .mobile-menu {
+            position: relative;
+        }
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            z-index: 1000;
+            background: transparent;
+            padding: 15px;
+        }
+        .mobile-nav-toggle {
+            background: transparent;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            position: relative;
+            float: right;
+            color: white;
+            font-size: 24px;
+        }
+        .mobile-nav-toggle i {
+            transition: transform 0.3s ease;
+        }
+        .mobile-nav-toggle.active i {
+            transform: rotate(90deg);
+        }
+        .mobile-nav-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .mobile-nav-content.active {
+            display: block;
+        }
+        .mobile-nav-content ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .mobile-nav-content ul li {
+            margin: 0;
+            padding: 0;
+        }
+        .mobile-nav-content ul li a {
+            display: block;
+            padding: 10px 15px;
+            color: #333;
+            text-decoration: none;
+            border-bottom: 1px solid #eee;
+        }
+        .mobile-nav-content ul li a:hover {
+            background: #f5f5f5;
+        }
+        .mobile-nav-content ul li ul {
+            padding-left: 20px;
+        }
+
+    </style>
 </head>
 
 <body>
@@ -38,19 +156,21 @@
                 <div class="container-fluid ">
                     <div class="header_bottom_border">
                         <div class="row align-items-center">
-                            <div class="col-xl-3 col-lg-2">
-                                <div class="logo">
-                                    <a href="{{route("index")}}" aria-label="Wuzzuf Logo">
-                                        <svg viewBox="0 0 250 20" xmlns="http://www.w3.org/2000/svg" aria-labelledby="wuzzuf-logo" class="css-1yrtvfx">
+                            <!-- Logo Column -->
+                            <div class="col-xl-2 col-lg-2 col-md-2">
+                                <div class="logo" style="width: 320px; height: 40px; display: flex; align-items: center;">
+                                    <a href="{{route("index")}}" aria-label="Wuzzuf Logo" style="display: block; width: 100%; height: 100%;">
+                                        <svg viewBox="0 0 250 20" preserveAspectRatio="xMidYMid meet" style="width: 100%; height: 100%;" xmlns="http://www.w3.org/2000/svg" aria-labelledby="wuzzuf-logo" class="css-1yrtvfx">
                                             <path fill="#0055D9" d="M23.724.001h4.906L22.583 20H18.17L14.315 7.96 10.489 20H6.046L0 .001h4.936L8.793 12.32 12.587 0h3.61l3.671 12.319L23.724 0zm9.147 17.552c-1.604-1.63-2.406-3.823-2.406-6.577V.001h4.689v11.036c0 1.54.432 2.714 1.296 3.524.864.81 2.046 1.215 3.548 1.215 1.48 0 2.648-.405 3.502-1.215.853-.81 1.28-1.985 1.28-3.524V0h4.689v10.975c0 2.754-.792 4.947-2.376 6.577C45.51 19.184 43.145 20 39.998 20s-5.523-.815-7.127-2.446zm18.416-.694L62.456 3.95H51.565V.001h16.69v3.17L57.15 16.052h11.106V20H51.287v-3.14zm18.803 0L81.258 3.95h-10.89V.001h16.69v3.17l-11.106 12.88h11.106v3.948H70.09v-3.14zm21.226.694c-1.605-1.63-2.407-3.823-2.407-6.577V.001h4.69v11.036c0 1.54.432 2.714 1.295 3.524.864.81 2.047 1.215 3.548 1.215 1.481 0 2.648-.405 3.502-1.215.853-.81 1.28-1.985 1.28-3.524V0h4.69v10.975c0 2.754-.793 4.947-2.376 6.577-1.584 1.631-3.949 2.446-7.096 2.446-3.147 0-5.522-.815-7.126-2.446zm23.279-5.733V20h-4.69V0H125l-1.08 3.982h-9.325V8.18h7.959l-.99 3.64h-6.97z" style="fill: #fff;"></path>
                                         </svg>
                                     </a>
                                 </div>
                             </div>
-                            <div class="col-xl-6 col-lg-7">
-                                <div class="main-menu  d-none d-lg-block">
+                            <!-- Navigation Column -->
+                            <div class="col-xl-8 col-lg-8 col-md-8">
+                                <div class="main-menu d-none d-lg-block">
                                     <nav>
-                                        <ul id="navigation">
+                                        <ul id="navigation" style="display: flex; justify-content: center; align-items: center;">
                                             <li><a href="{{route("index")}}">home</a></li>
                                             @if ($userType == "employer")
                                                 <li><a href="{{route("addJob")}}">Place Jobs</a></li>
@@ -79,8 +199,9 @@
                                     </nav>
                                 </div>
                             </div>
-                            <div class="col-xl-3 col-lg-3 d-none d-lg-block">
-                                <div class="main-menu  d-none d-lg-block">
+                            <!-- User Section Column -->
+                            <div class="col-xl-2 col-lg-2 col-md-2">
+                                <div class="main-menu d-none d-lg-block">
                                     <nav>
                                         <!-- Right Side Of Navbar -->
                                         <ul id="navigation">
@@ -119,42 +240,47 @@
                             </div>
                             <div class="col-12">
                                 <div class="mobile_menu d-block d-lg-none">
-                                    <nav>
-                                        <ul>
-                                            <li><a href="{{route("index")}}">home</a></li>
-                                            @if ($userType == "employer")
-                                                <li><a href="{{route("addJob")}}">Place Jobs</a></li>
-                                                <li><a href="{{route('showProfileJobs', ['id' => Auth::user()->id]) }}">My Candidates</a></li>
-                                            @elseif ($userType == "employee")
-                                                <li><a href="{{route("showJobs")}}">Browse Jobs</a></li>
-                                                <li><a href="{{route("showApplications")}}">My Applications</a></li>
-                                            @else
-                                                <li><a href="{{route("showJobs")}}">Browse Jobs</a></li>
-                                            @endif
-                                            @guest
-                                                @if (Route::has('login'))
-                                                    <li><a href="{{ route('login') }}">Log in</a></li>
+                                    <div class="mobile-nav">
+                                        <button class="mobile-nav-toggle">
+                                            <i class="fas fa-bars"></i>
+                                        </button>
+                                        <div class="mobile-nav-content">
+                                            <ul>
+                                                <li><a href="{{route("index")}}"><i class="fas fa-home"></i> Home</a></li>
+                                                @if ($userType == "employer")
+                                                    <li><a href="{{route("addJob")}}"><i class="fas fa-plus-circle"></i> Place Jobs</a></li>
+                                                    <li><a href="{{route('showProfileJobs', ['id' => Auth::user()->id]) }}"><i class="fas fa-users"></i> My Candidates</a></li>
+                                                @elseif ($userType == "employee")
+                                                    <li><a href="{{route("showJobs")}}"><i class="fas fa-search"></i> Browse Jobs</a></li>
+                                                    <li><a href="{{route("showApplications")}}"><i class="fas fa-file-alt"></i> My Applications</a></li>
+                                                @else
+                                                    <li><a href="{{route("showJobs")}}"><i class="fas fa-search"></i> Browse Jobs</a></li>
                                                 @endif
-                                                @if (Route::has('register'))
-                                                    <li><a href="{{ route('register') }}">Register</a></li>
-                                                @endif
-                                            @else
-                                                <li>
-                                                    <a href="#">{{ Auth::user()->name }}</a>
-                                                    <ul>
-                                                        <li><a href="{{ route('showProfile', ['id' => Auth::user()->id]) }}">Profile</a></li>
-                                                        <li>
-                                                            <a href="{{ route('logout') }}"
-                                                                onclick="event.preventDefault();
-                                                                document.getElementById('logout-form').submit();">
-                                                                {{ __('Logout') }}
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            @endguest
-                                        </ul>
-                                    </nav>
+                                                @guest
+                                                    @if (Route::has('login'))
+                                                        <li><a href="{{ route('login') }}"><i class="fas fa-sign-in-alt"></i> Log in</a></li>
+                                                    @endif
+                                                    @if (Route::has('register'))
+                                                        <li><a href="{{ route('register') }}"><i class="fas fa-user-plus"></i> Register</a></li>
+                                                    @endif
+                                                @else
+                                                    <li>
+                                                        <a href="#"><i class="fas fa-user"></i> {{ Auth::user()->name }}</a>
+                                                        <ul>
+                                                            <li><a href="{{ route('showProfile', ['id' => Auth::user()->id]) }}"><i class="fas fa-id-card"></i> Profile</a></li>
+                                                            <li>
+                                                                <a href="{{ route('logout') }}"
+                                                                    onclick="event.preventDefault();
+                                                                    document.getElementById('logout-form').submit();">
+                                                                    <i class="fas fa-sign-out-alt"></i> {{ __('Logout') }}
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                @endguest
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -380,13 +506,10 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
     <script src="{{asset('js/main.js')}}"></script>
     <script>
-        $(document).ready(function(){
-            $('.mobile_menu').slicknav({
-                prependTo: '.mobile_menu',
-                label: '',
-                closedSymbol: '<i class="ti-angle-right"></i>',
-                openedSymbol: '<i class="ti-angle-down"></i>',
-                allowParentLinks: true
+        $(document).ready(function() {
+            $('.mobile-nav-toggle').on('click', function() {
+                $(this).toggleClass('active');
+                $('.mobile-nav-content').toggleClass('active');
             });
         });
     </script>
