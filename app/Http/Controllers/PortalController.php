@@ -94,7 +94,7 @@ class PortalController extends Controller
 
     public function showJobs()
     {
-        $jobs = JobOffer::all();
+        $jobs = JobOffer::paginate(3); 
 
         if(Auth::user() != null) 
         {

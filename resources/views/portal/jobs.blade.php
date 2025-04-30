@@ -191,10 +191,25 @@
                             <div class="col-lg-12">
                                 <div class="pagination_wrap">
                                     <ul>
-                                        <li><a href="#"> <i class="ti-angle-left"></i> </a></li>
-                                        <li><a href="#"><span>01</span></a></li>
-                                        <li><a href="#"><span>02</span></a></li>
-                                        <li><a href="#"> <i class="ti-angle-right"></i> </a></li>
+                                        @if ($jobs->onFirstPage())
+                                            <li class="disabled" style="margin: 0 4px;"><a href="#"><i class="ti-angle-left"></i></a></li>
+                                        @else
+                                            <li style="margin: 0 4px;"><a href="{{ $jobs->previousPageUrl() }}"><i class="ti-angle-left"></i></a></li>
+                                        @endif
+
+                                        @foreach ($jobs->getUrlRange(1, $jobs->lastPage()) as $page => $url)
+                                            @if ($page == $jobs->currentPage())
+                                                <li class="active" style="margin: 0 4px;"><span>{{ $page }}</span></li>
+                                            @else
+                                                <li style="margin: 0 4px;"><a href="{{ $url }}">{{ $page }}</a></li>
+                                            @endif
+                                        @endforeach
+
+                                        @if ($jobs->hasMorePages())
+                                            <li style="margin: 0 4px;"><a href="{{ $jobs->nextPageUrl() }}"><i class="ti-angle-right"></i></a></li>
+                                        @else
+                                            <li class="disabled" style="margin: 0 4px;"><a href="#"><i class="ti-angle-right"></i></a></li>
+                                        @endif
                                     </ul>
                                 </div>
                             </div>
