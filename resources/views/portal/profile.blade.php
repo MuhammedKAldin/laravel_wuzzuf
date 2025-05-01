@@ -60,7 +60,7 @@
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <h4 class="mb-0">Basic Information</h4>
                                 @if($isOwner)
-                                <button type="button" class="btn btn-link" onclick="toggleEditMode()">
+                                <button type="button" class="btn btn-link" onclick="toggleEditMode()" disabled style="pointer-events: none; opacity: 0.5;">
                                     <i class="fa fa-edit"></i> Edit
                                 </button>
                                 @endif
