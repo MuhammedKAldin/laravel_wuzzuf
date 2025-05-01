@@ -178,8 +178,6 @@
                                                 <li><a href="{{route('showProfileJobs', ['id' => Auth::user()->id]) }}">My Candidates</a></li>
                                             @elseif (Auth::check() && Auth::user()->role == "employee")
                                                 <li><a href="{{route("showApplications")}}">My Applications</a></li>
-                                            @else
-                                                <li><a href="{{route("jobs.index")}}">Browse Jobs</a></li>
                                             @endif
                                             <li style="visibility: hidden;"><a href="#">pages <i class="ti-angle-down"></i></a>
                                                 <ul class="submenu">
