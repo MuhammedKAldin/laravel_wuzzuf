@@ -38,7 +38,7 @@ A comprehensive job portal platform built with Laravel that connects job seekers
 ### 💬 Real-time Communication
 - Integrated chat system for employer-candidate communication
 - Pusher integration for real-time messaging
-- Chat available in later hiring stages
+- Chat available in later hiring stages Doesn't Work at (Screening, Declined) But on (Shortlisted / Interview / Accepted) 
 
 ### 🔍 Job Search & Filtering
 - Browse all available jobs
