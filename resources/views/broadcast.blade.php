@@ -1,6 +1,4 @@
-
-
 <div class= "right message">
     <p> {{$message}} </p>
-    <img src="{{asset("avatar.png")}}" alt="Avatar" >
+    <img src="{{ auth()->user()->userAvatar }}" alt="Avatar" >
 </div>

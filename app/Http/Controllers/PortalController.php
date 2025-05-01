@@ -47,7 +47,8 @@ class PortalController extends Controller
             if($user) 
             { 
                 // Check if user found
-                return view('portal.profile', compact('userType', 'user'));
+                $isOwner = Auth::check() && Auth::user()->id == $user->id;
+                return view('portal.profile', compact('userType', 'user', 'isOwner'));
             }
             else {
                 // User isn't Found
@@ -59,8 +60,6 @@ class PortalController extends Controller
             // Id isn't Passed
             return view('/', compact('userType'));
         }
-
-        return view('portal.profile', compact('userType','user'));
     }
 
     public function updateProfile(Request $request)

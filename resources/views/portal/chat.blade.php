@@ -25,7 +25,7 @@
         @elseif ($userType == "employee")
             <a  href="{{ route('showApplications') }}"><img src="{{asset("back.png")}}" width="55px" alt="Avatar" style="margin-top: -30px;margin-left: -21px;"></a>
         @endif
-      <img src="{{asset("avatar.png")}}" width="55px" alt="Avatar" style="margin-top: -30px;margin-left: 15px;">
+      <img src="{{ $receiver->userAvatar }}" width="55px" alt="Avatar" style="margin-top: -30px;margin-left: 15px;">
       <div>
         <p> Chatting with {{ $receiver->name }} </p>
         <small>Online</small>
@@ -35,13 +35,13 @@
     <!-- Chat -->
 
     <div class="messages">
-    @include('receive', ['message' => " "])
+    @include('receive', ['message' => " ", 'receiver' => $receiver])
 
       @foreach ($messages as $message)
         @if($message->sender == $sender) 
           @include('broadcast', ['message' => "$message->message"])
         @else
-          @include('receive', ['message' => "$message->message"])
+          @include('receive', ['message' => "$message->message", 'receiver' => $receiver])
         @endif
       @endforeach
     </div>
@@ -70,17 +70,24 @@
   // Receive messages
   channel.bind('chatMessage', function (data) 
   {
-      let jsonMsg = data.message;
+      console.log('Received data:', data); // Debug log
+      
+      let message = data.message;
+      let senderId = data.sender_id;
+      let senderAvatar = data.sender_avatar;
 
-      let senderMessage = `
-        <div class="left message">
-            <img src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('avatar.png') }}" alt="Avatar">
-            <p>` + jsonMsg + `</p>
-        </div>`;
-        
-      $(".messages > .message").last().after(senderMessage);
-      $("form #message").val('');
-      $(document).scrollTop($(document).height());
+      // Only add the message if it's from the other user
+      if (senderId != {{ auth()->user()->id }}) {
+          let senderMessage = `
+            <div class="left message">
+                <img src="` + senderAvatar + `" alt="Avatar">
+                <p>` + message + `</p>
+            </div>`;
+            
+          $(".messages > .message").last().after(senderMessage);
+          $("form #message").val('');
+          $(document).scrollTop($(document).height());
+      }
   });
 
   //Broadcast messages
@@ -102,7 +109,7 @@
         let senderMessage = `
         <div class="right message">
             <p>` + $("form #message").val() + `</p>
-            <img src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('avatar.png') }}" alt="Avatar">
+            <img src="{{ auth()->user()->userAvatar }}" alt="Avatar">
         </div>`;
 
         $(".messages > .message").last().after(senderMessage);

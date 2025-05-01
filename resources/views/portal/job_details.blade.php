@@ -73,8 +73,8 @@
                         </div> -->
                     </div>
                     <div class="apply_job_form white-bg">
-                        <h4>Apply for the job</h4>
-                        @if (Auth::user())
+                        @if (Auth::user() && !Auth::user()->isEmployer())
+                            <h4>Apply for the job</h4>
                             @php
                                 $hasApplied = \App\Models\JobOfferUser::where('job_offer_id', $job->id)
                                     ->where('user_id', Auth::user()->id)
@@ -148,7 +148,7 @@
                                     </div>
                                 </form>
                             @endif
-                        @else
+                        @elseif (!Auth::user())
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="alert alert-info">

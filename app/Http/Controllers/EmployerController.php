@@ -18,7 +18,8 @@ class EmployerController extends Controller
     public function addJob()
     {
         $userType = Auth::user()->role;
-        return view('portal.newjob', compact('userType'));
+        $categories = \App\Models\Category::all();
+        return view('portal.newjob', compact('userType', 'categories'));
     }
 
     public function showProfileJobs($id)

@@ -54,7 +54,9 @@ class PusherController extends Controller
         // Broadcast
         $message = $request->message;
         $receiver = $this->getUser($user_id);
-        broadcast(new PusherBroadcast($receiver, $message));
+        $sender_id = Auth::user()->id;
+        $sender_avatar = Auth::user()->userAvatar;
+        broadcast(new PusherBroadcast($receiver, $message, $sender_id, $sender_avatar));
 
         // return response()->json(['success' => true]);
     }

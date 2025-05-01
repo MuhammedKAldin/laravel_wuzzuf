@@ -172,11 +172,11 @@
                                     <nav>
                                         <ul id="navigation" style="display: flex; justify-content: center; align-items: center;">
                                             <li><a href="{{route("index")}}">home</a></li>
+                                            <li><a href="{{route("jobs.index")}}">Browse Jobs</a></li>
                                             @if (Auth::check() && Auth::user()->role == "employer")
                                                 <li><a href="{{route("addJob")}}">Place Jobs</a></li>
                                                 <li><a href="{{route('showProfileJobs', ['id' => Auth::user()->id]) }}">My Candidates</a></li>
                                             @elseif (Auth::check() && Auth::user()->role == "employee")
-                                                <li><a href="{{route("jobs.index")}}">Browse Jobs</a></li>
                                                 <li><a href="{{route("showApplications")}}">My Applications</a></li>
                                             @else
                                                 <li><a href="{{route("jobs.index")}}">Browse Jobs</a></li>

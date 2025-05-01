@@ -165,8 +165,7 @@
                                     
                                     <div class="jobs_right">
                                         <div class="apply_now">
-                                            {{-- <a class="heart_mark" href="#"> <i class="fa fa-heart"></i> </a> --}}
-                                            @if (Auth::user())
+                                            @if (Auth::user() && !Auth::user()->isEmployer())
                                                 @php
                                                     $hasApplied = \App\Models\JobOfferUser::where('job_offer_id', $job->id)
                                                         ->where('user_id', Auth::user()->id)
@@ -177,7 +176,7 @@
                                                 @else
                                                     <a href="/jobs/{{ $job->id }}" class="boxed-btn3">Apply Now</a>
                                                 @endif
-                                            @else
+                                            @elseif (!Auth::user())
                                                 <a href="/jobs/{{ $job->id }}" class="boxed-btn3">View Details</a>
                                             @endif
                                         </div>

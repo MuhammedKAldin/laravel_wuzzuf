@@ -15,14 +15,18 @@ class PusherBroadcast implements ShouldBroadcast
 
     public User $receiver;
     public string $message;
+    public int $sender_id;
+    public string $sender_avatar;
 
     /**
      * Create a new event instance.
      */
-    public function __construct(User $receiver, string $message)
+    public function __construct(User $receiver, string $message, int $sender_id, string $sender_avatar)
     {
         $this->receiver = $receiver;
         $this->message = $message;
+        $this->sender_id = $sender_id;
+        $this->sender_avatar = $sender_avatar;
     }
 
     /**
@@ -38,5 +42,14 @@ class PusherBroadcast implements ShouldBroadcast
     public function broadcastAs(): string
     {
         return 'chatMessage';
+    }
+
+    public function broadcastWith(): array
+    {
+        return [
+            'message' => $this->message,
+            'sender_id' => $this->sender_id,
+            'sender_avatar' => $this->sender_avatar
+        ];
     }
 }

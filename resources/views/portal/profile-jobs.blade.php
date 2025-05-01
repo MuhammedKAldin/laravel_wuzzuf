@@ -3,11 +3,11 @@
 @section('content')
 
     <div class="bradcam_area bradcam_bg_1">
-        <div class="container">
+        <div class="container mt-5">
             <div class="row">
                 <div class="col-xl-12">
                     <div class="bradcam_text">
-                        <h3>Profile</h3>
+                        <h3>Job Listings</h3>
                     </div>
                 </div>
             </div>
@@ -17,26 +17,24 @@
   <section class="contact-section section_padding">
 
     <div class="catagory_area">
-        <div class="container">
+        <!-- <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="popular_search align-items-center">
                         <ul>
-                            <li><a href="{{ route('showProfile', ['id' => $user->id]) }}">General</a></li>
-                            <li><a href="{{ route('jobs.index', ['id' => $user->id]) }}">Jobs</a></li>
                             {{-- <li><a href="#">Review</a></li> --}}
                         </ul>
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
-    <div class="container">
 
+    <div class="container">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="recent_joblist_wrap">
+                    <!-- <div class="recent_joblist_wrap">
                         <div class="recent_joblist white-bg ">
                             <div class="row align-items-center">
                                 <div class="col-md-6">
@@ -44,7 +42,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <hr/>
                     <div class="job_lists m-0">
                         <div class="row">

@@ -61,7 +61,7 @@
                             <div class="col-md-6 col-lg-3" id="cadidateCard_{{ $job->id }}">
                                 <div class="single_candidates text-center">
                                     <div class="thumb">
-                                        <img src="{{asset('img/candidate.png')}}" alt="">
+                                        <img src="{{ $job->user->userAvatar }}" alt="{{ $job->user->name }}">
                                     </div>
                                     <a href="{{ route('showProfile', ['id' => $job->user_id]) }}"><h4>{{ $job->user->name }}</h4></a>
                                     <p> {{ $job->user->headline }} </p>
