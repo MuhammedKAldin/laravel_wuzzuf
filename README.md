@@ -39,6 +39,10 @@ A comprehensive job portal platform built with Laravel that connects job seekers
 - Integrated chat system for employer-candidate communication
 - Pusher integration for real-time messaging
 - Chat available in later hiring stages Doesn't Work at (Screening, Declined) But on (Shortlisted / Interview / Accepted) 
+- Chatting Access is strictly controlled by job offer ownership and application status
+- All unauthorized access attempts are properly handled, Only authorized users can access chats
+- The system maintains proper separation between different job offers and users
+- Previous conversations are preserved for authorized users
 
 ### 🔍 Job Search & Filtering
 - Browse all available jobs
