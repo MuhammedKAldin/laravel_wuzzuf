@@ -172,10 +172,10 @@
                                     <nav>
                                         <ul id="navigation" style="display: flex; justify-content: center; align-items: center;">
                                             <li><a href="{{route("index")}}">home</a></li>
-                                            @if ($userType == "employer")
+                                            @if (Auth::check() && Auth::user()->role == "employer")
                                                 <li><a href="{{route("addJob")}}">Place Jobs</a></li>
                                                 <li><a href="{{route('showProfileJobs', ['id' => Auth::user()->id]) }}">My Candidates</a></li>
-                                            @elseif ($userType == "employee")
+                                            @elseif (Auth::check() && Auth::user()->role == "employee")
                                                 <li><a href="{{route("jobs.index")}}">Browse Jobs</a></li>
                                                 <li><a href="{{route("showApplications")}}">My Applications</a></li>
                                             @else
@@ -247,10 +247,10 @@
                                         <div class="mobile-nav-content">
                                             <ul>
                                                 <li><a href="{{route("index")}}"><i class="fas fa-home"></i> Home</a></li>
-                                                @if ($userType == "employer")
+                                                @if (Auth::check() && Auth::user()->role == "employer")
                                                     <li><a href="{{route("addJob")}}"><i class="fas fa-plus-circle"></i> Place Jobs</a></li>
                                                     <li><a href="{{route('showProfileJobs', ['id' => Auth::user()->id]) }}"><i class="fas fa-users"></i> My Candidates</a></li>
-                                                @elseif ($userType == "employee")
+                                                @elseif (Auth::check() && Auth::user()->role == "employee")
                                                     <li><a href="{{route("jobs.index")}}"><i class="fas fa-search"></i> Browse Jobs</a></li>
                                                     <li><a href="{{route("showApplications")}}"><i class="fas fa-file-alt"></i> My Applications</a></li>
                                                 @else

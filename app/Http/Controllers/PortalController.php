@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Auth;
 
 class PortalController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('employee')->only(['applyToJob', 'showApplications']);
+    }
+
     public function index()
     {
         if(Auth::user() != null) {
@@ -72,8 +77,16 @@ class PortalController extends Controller
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
             'headline' => 'nullable|string|max:255',
             'summary' => 'nullable|string',
-            'cv' => 'nullable|file|mimes:pdf,doc,docx|max:2048'
+            'cv' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
         ]);
+
+        // Handle avatar upload if provided
+        if ($request->hasFile('avatar')) {
+            $avatarFile = $request->file('avatar');
+            $avatarPath = $avatarFile->store('avatars', 'public');
+            $user->avatar = $avatarPath;
+        }
 
         // Handle CV upload if provided
         if ($request->hasFile('cv')) {
@@ -126,10 +139,6 @@ class PortalController extends Controller
 
     public function applyToJob(Request $request)
     {
-        if (!Auth::check()) {
-            return redirect()->route('login')->with('warning', 'Please login to apply for jobs');
-        }
-
         $jobId = $request->input('jid');
         $userId = Auth::user()->id;
 
@@ -184,23 +193,9 @@ class PortalController extends Controller
     public function showApplications()
     {
         $id = Auth::user()->id;
-
-        if($id) 
-        {
-            // echo 'Display Jobs';
-
-            // Id has some value
-            $userType = "employee";
-            $jobs = JobOfferUser::where('user_id', $id)->get();
-            // $jobs = JobOffer::where('id', $id)->get();
-            
-            // Check if id found
-            return view('portal.applications', compact('userType', 'jobs'));
-        }
-        else 
-        {
-            echo 'no User id is passed';
-        }
+        $userType = "employee";
+        $jobs = JobOfferUser::where('user_id', $id)->get();
+        
+        return view('portal.applications', compact('userType', 'jobs'));
     }
-
 }

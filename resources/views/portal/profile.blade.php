@@ -3,7 +3,7 @@
 @section('content')
     <!-- bradcam_area  -->
     <div class="bradcam_area bradcam_bg_1">
-        <div class="container">
+        <div class="container pt-5">
             <div class="row">
                 <div class="col-xl-12">
                     <div class="bradcam_text">
@@ -31,15 +31,15 @@
                     <div class="col-12 mb-4">
                         <div class="form-group text-center">
                             <div class="avatar-wrapper mb-3">
-                                <img src="{{ $user->userAvatar }}" alt="Profile Picture" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;">
+                                <img src="{{ $user->userAvatar }}" alt="Profile Picture" id="avatarPreview" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;">
                             </div>
                             <div class="input-group">
                                 <div class="input-group-prepend">
-                                    <button type="button" id="inputGroupFileAddon02"><i class="fa fa-cloud-upload" aria-hidden="true"></i></button>
+                                    <button type="button" id="inputGroupFileAddon02" onclick="document.getElementById('avatar').click()"><i class="fa fa-cloud-upload" aria-hidden="true"></i></button>
                                 </div>
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="avatar" name="avatar" accept="image/*">
-                                    <label class="custom-file-label" for="avatar">Change Profile Picture</label>
+                                    <input type="file" class="custom-file-input" id="avatar" name="avatar" accept="image/*" style="display: none;">
+                                    <label class="custom-file-label" for="avatar" id="avatarLabel">Change Profile Picture</label>
                                 </div>
                             </div>
                             <small class="form-text text-muted">Upload a new profile picture (JPG, PNG, max 2MB)</small>
@@ -99,4 +99,22 @@
         </div>
     </div>
     </section>
+
+    @push('scripts')
+    <script>
+        document.getElementById('avatar').addEventListener('change', function(e) {
+            var fileName = e.target.files[0].name;
+            document.getElementById('avatarLabel').textContent = fileName;
+            
+            // Show preview of selected image
+            if (e.target.files && e.target.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatarPreview').src = e.target.result;
+                }
+                reader.readAsDataURL(e.target.files[0]);
+            }
+        });
+    </script>
+    @endpush
 @endsection

@@ -14,7 +14,7 @@ return new class extends Migration
         // Create job_offers table
         Schema::create('job_offers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('employer_id');
+            $table->foreignId('employer_id')->constrained('users')->onDelete('cascade');
             $table->string('name');
             $table->string('description');
             $table->string('responsibility');
@@ -33,8 +33,8 @@ return new class extends Migration
         // creating pivot table between job offers and users
         Schema::create('job_offer_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('job_offer_id');
-            $table->foreignId('user_id');
+            $table->foreignId('job_offer_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('stage')->default('screening');
             $table->timestamps();
         });

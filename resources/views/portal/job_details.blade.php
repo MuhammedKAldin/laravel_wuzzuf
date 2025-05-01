@@ -4,7 +4,7 @@
 
     <!-- bradcam_area  -->
     <div class="bradcam_area bradcam_bg_1">
-        <div class="container">
+        <div class="container pt-5">
             <div class="row">
                 <div class="col-xl-12">
                     <div class="bradcam_text">
@@ -51,14 +51,14 @@
                             <h4>Job description</h4>
                             <p>{{ $job->description }}</p>
                         </div>
-                        <div class="single_wrap">
+                        <!-- <div class="single_wrap">
                             <h4>Responsibility</h4>
                             <ul>
                                 @foreach(explode("\n", $job->responsibilities) as $responsibility)
                                     <li>{{ $responsibility }}</li>
                                 @endforeach
                             </ul>
-                        </div>
+                        </div> -->
                         <div class="single_wrap">
                             <h4>Qualifications</h4>
                             <ul>
@@ -67,10 +67,10 @@
                                 @endforeach
                             </ul>
                         </div>
-                        <div class="single_wrap">
+                        <!-- <div class="single_wrap">
                             <h4>Benefits</h4>
                             <p>{{ $job->benefits }}</p>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="apply_job_form white-bg">
                         <h4>Apply for the job</h4>
@@ -91,7 +91,7 @@
                                     </div>
                                 </div>
                             @else
-                                <form action="{{ route('applyToJob') }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('jobs.apply') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <input type="hidden" name="jid" value="{{ $job->id }}">
                                     <input type="hidden" name="uid" value="{{ Auth::user()->id }}">
@@ -172,7 +172,7 @@
                             <ul>
                                 <li>Published on: <span>{{ \Carbon\Carbon::parse($job->created_at)->format('d M, Y') }}</span></li>
                                 <li>Vacancy: <span>{{ $job->vacancy }} Position</span></li>
-                                <li>Salary: <span>{{ $job->salary }}</span></li>
+                                <!-- <li>Salary: <span>{{ $job->salary }}</span></li> -->
                                 <li>Location: <span>{{ $job->location }}</span></li>
                                 <li>Job Nature: <span>{{ $job->availability }}</span></li>
                             </ul>

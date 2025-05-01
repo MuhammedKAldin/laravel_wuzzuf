@@ -10,31 +10,21 @@ use Illuminate\Support\Facades\Auth;
 
 class EmployerController extends Controller
 {
-    
+    public function __construct()
+    {
+        $this->middleware('employer');
+    }
    
     public function addJob()
     {
-        if(Auth::user() != null) {
-            $userType = Auth::user()->role;
-            return view('portal.newjob', compact('userType'));
-        }
-        else{
-            $userType = "guest";
-            return view('portal.newjob', compact('userType'));
-        }
+        $userType = Auth::user()->role;
+        return view('portal.newjob', compact('userType'));
     }
 
     public function showProfileJobs($id)
     {
-        if(Auth::user() != null) 
-        {
-            $userType = Auth::user()->role;
-        } 
-        else 
-        {
-            $userType = "guest";
-        } 
-
+        $userType = Auth::user()->role;
+        
         if($id) 
         {
             // Id has some value
@@ -43,20 +33,20 @@ class EmployerController extends Controller
             // Check if id found
             if($user) 
             {
-                // Use the relationship instead of direct query
-                $jobs = $user->jobOffers;
+                // Use the relationship with candidates count
+                $jobs = $user->jobOffers()->withCount('candidates')->get();
                 
                 return view('portal.profile-jobs', compact('userType', 'user', 'jobs'));
             }
             else 
             {
                 // Error 404
-                echo 'Error 404 profile Not found';
+                return redirect()->route('index')->with('error', 'Profile not found');
             }
         }
         else 
         {
-            echo 'no User id is passed';
+            return redirect()->route('index')->with('error', 'No user ID provided');
         }
     }
 
@@ -75,9 +65,6 @@ class EmployerController extends Controller
                 $stage = "screening";
             }
 
-            // echo 'Display Jobs';
-
-            // Determine user type and fetch jobs
             $userType = "employer";
             $jobs = JobOfferUser::where('job_offer_id', $job_offer_id)
                 ->where('stage', $stage)
@@ -85,12 +72,11 @@ class EmployerController extends Controller
 
             $stageArr = self::STAGE_ARR;
 
-            // Pass variables to the view
             return view('portal.candidates', compact('userType', 'job_offer_id', 'jobs', 'stageArr', 'stage'));
         } 
         else 
         {
-            echo 'No User ID is passed';
+            return redirect()->route('index')->with('error', 'No job ID provided');
         }
     }
 
@@ -98,7 +84,7 @@ class EmployerController extends Controller
     {
         // Validate the incoming request
         $request->validate([
-            'id' => 'required|integer', // Assuming you are sending the Job ID
+            'id' => 'required|integer',
             'stage' => 'required|string',
         ]);
     
@@ -106,19 +92,16 @@ class EmployerController extends Controller
         $jobId = $request->input('id');
         $stage = $request->input('stage');
 
-        // Update the Job Offer's Candidate stage (According to required model that needs Chaning to take effect)
+        // Update the Job Offer's Candidate stage
         $job = JobOfferUser::find($jobId); 
         if ($job) 
         {
             $job->stage = $stage; 
             $job->save();
             
-            // Return a success response
             return response()->json(['message' => 'Stage updated successfully.']);
         }
     
-        // Return an error response if the candidate is not found
         return response()->json(['message' => 'Candidate not found.'], 404);
     }
-    
 }

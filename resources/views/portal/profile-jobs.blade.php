@@ -70,6 +70,9 @@
                                                     <div class="location">
                                                         <p> <i class="fa fa-clock-o"></i> {{$job->availability}}</p>
                                                     </div>
+                                                    <div class="location">
+                                                        <p> <i class="fa fa-users"></i> {{$job->candidates_count}} </p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

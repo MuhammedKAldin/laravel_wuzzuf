@@ -320,12 +320,6 @@ class DatabaseSeeder extends Seeder
             'updated_at' => '2025-04-05 15:20:00'
         ]);
 
-        JobOfferUser::factory()->create([
-            'job_offer_id' => 1, 
-            'user_id' => 2,
-            'stage' => 'shortlisted',
-        ]);
-
         // Create 10 jobs for each category (8 categories total)
         
         // Category 1: Design & Creative
@@ -542,6 +536,13 @@ class DatabaseSeeder extends Seeder
             'level' => 'Mid',
             'availability' => 'Full-time',
             'category_id' => 8,
+        ]);
+
+        // Create 10 job applications for each job offer
+        JobOfferUser::factory()->create([
+            'job_offer_id' => 1, 
+            'user_id' => 6,
+            'stage' => 'shortlisted',
         ]);
     }
 }

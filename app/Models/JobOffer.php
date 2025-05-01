@@ -44,4 +44,11 @@ class JobOffer extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function candidates()
+    {
+        return $this->belongsToMany(User::class, 'job_offer_user', 'job_offer_id', 'user_id')
+            ->withPivot('stage', 'cv_path', 'cover_letter')
+            ->withTimestamps();
+    }
 }
