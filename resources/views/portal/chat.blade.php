@@ -38,7 +38,7 @@
     @include('receive', ['message' => " ", 'receiver' => $receiver])
 
       @foreach ($messages as $message)
-        @if($message->sender == $sender) 
+        @if($message->sender == $current_user_id) 
           @include('broadcast', ['message' => "$message->message"])
         @else
           @include('receive', ['message' => "$message->message", 'receiver' => $receiver])
